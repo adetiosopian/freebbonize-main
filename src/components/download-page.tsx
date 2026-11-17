@@ -58,7 +58,7 @@ export default function DownloadPageSidebar({ canvas }: { canvas: React.RefObjec
 				<h1 className="text-2xl lg:text-4xl font-semibold mb-3">Ready to share!</h1>
 				<div className="flex flex-col gap-3">
 					<span className="text-sm font-medium">Caption:</span>
-					<p className="p-2 border rounded-md border-gray-600/50 text-sm">{filledCaption}</p>
+					<p className="p-2 border rounded-md border-gray-600/50 text-sm whitespace-pre-wrap">{filledCaption}</p>
 					<div className="flex gap-2 text-xs md:text-sm">
 						<button onClick={() => handleCopyCaption()} className="flex-1 bg-purple-700 text-white flex justify-center items-center p-3 gap-2 rounded-md cursor-pointer">
 							{isCopied ? (
