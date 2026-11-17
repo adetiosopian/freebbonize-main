@@ -17,7 +17,9 @@ type CanvasProps = {
 };
 
 export default function TwibbonCanvas({ userPhoto, transform, frameSrc, isEditMode, setTransform, canvasRef }: CanvasProps) {
-	const size = 500;
+	// Dimensi mengikuti ukuran asli twibbon (1475 x 1844)
+	const canvasWidth = 1080;
+	const canvasHeight = 1350;
 	const frameRef = useRef(new Image());
 
 	function draw() {
@@ -25,17 +27,17 @@ export default function TwibbonCanvas({ userPhoto, transform, frameSrc, isEditMo
 		if (!canvas) return;
 
 		const ctx = canvas.getContext("2d");
-		ctx?.clearRect(0, 0, size, size);
+		ctx?.clearRect(0, 0, canvasWidth, canvasHeight);
 
 		if (userPhoto) {
 			ctx?.save();
-			ctx?.translate(size / 2 + transform.x, size / 2 + transform.y);
+			ctx?.translate(canvasWidth / 2 + transform.x, canvasHeight / 2 + transform.y);
 			ctx?.rotate((transform.rotate * Math.PI) / 180);
 			ctx?.scale(transform.scale / 100, transform.scale / 100);
 			ctx?.drawImage(userPhoto, -userPhoto.width / 2, -userPhoto.height / 2);
 			ctx?.restore();
 		}
-		ctx?.drawImage(frameRef.current, 0, 0, size, size);
+		ctx?.drawImage(frameRef.current, 0, 0, canvasWidth, canvasHeight);
 	}
 
 	useEffect(() => {
@@ -78,5 +80,5 @@ export default function TwibbonCanvas({ userPhoto, transform, frameSrc, isEditMo
 		isDragging.current = false;
 	}
 
-	return <canvas ref={canvasRef} width={size} height={size} className={`w-full h-auto ${isEditMode && "cursor-move"}`} onPointerDown={handleDragDown} onPointerMove={handleDragMove} onPointerUp={handleDragUp} />;
+	return <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} className={`w-full h-auto ${isEditMode && "cursor-move"}`} onPointerDown={handleDragDown} onPointerMove={handleDragMove} onPointerUp={handleDragUp} />;
 }
