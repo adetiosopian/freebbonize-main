@@ -1,5 +1,9 @@
 {
 	"frameSrc": "/Dummy Twibbon.png",
-	"caption": "Halo, Sobat LKMM! Perkenalkan, nama saya [Nama Lengkap], dari Program Studi [Nama Program Studi], Fakultas [FASTEKOM / FKO] Universitas Muhammadiyah Bogor Raya. Saya siap mengikuti Latihan Keterampilan Manajemen Mahasiswa (LKMM) 2026 dengan tema 'Meningkatkan Kompetensi Manajerial untuk Mewujudkan Organisasi Mahasiswa yang Berkualitas' dengan penuh semangat, mengasah jiwa kepemimpinan, dan memperluas wawasan keorganisasian. Sampai bertemu di LKMM 2026! #umbara #bem.umbara #lkmm.umbara #himacosinbara #himagizi_umbara #himabi_umbara",
-	"props": ["name", "school"]
+	"caption": "Halo, Sobat LKMM! Perkenalkan, nama saya [Nama_Lengkap], dari Program Studi [Nama_Program_Studi], Fakultas [Fakultas] Universitas Muhammadiyah Bogor Raya. Saya siap mengikuti Latihan Keterampilan Manajemen Mahasiswa (LKMM) 2026 dengan tema 'Meningkatkan Kompetensi Manajerial untuk Mewujudkan Organisasi Mahasiswa yang Berkualitas' dengan penuh semangat, mengasah jiwa kepemimpinan, dan memperluas wawasan keorganisasian. Sampai bertemu di LKMM 2026! #umbara #bem.umbara #lkmm.umbara #himacosinbara #himagizi_umbara #himabi_umbara",
+	"props": [
+		"Nama_Lengkap",
+		"Nama_Program_Studi",
+		"Fakultas"
+	]
 }
