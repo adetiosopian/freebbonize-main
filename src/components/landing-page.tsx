@@ -11,12 +11,12 @@ export default function LandingPageSidebar({ onPhotoSelected }: { onPhotoSelecte
 	}
 
 	return (
-		<section className="h-[24em] p-5 w-full flex flex-col gap-3 justify-between ">
+		<section className="p-4 md:p-5 w-full flex flex-col gap-4">
 			<article>
-				<h1 className="lg:text-4xl text-2xl font-semibold mb-5">FancyEvent Twibbon</h1>
-				<p className="text-xl">Join our event and invite those around you to join in the fun!</p>
+				<h1 className="text-2xl lg:text-4xl font-semibold mb-3">LKMM Twibbon</h1>
+				<p className="text-base md:text-xl">Ayo pasang twibbon LKMM sekarang dan ramaikan sosial media kalian!</p>
 			</article>
-			<div className="*:cursor-pointer bg-purple-700 p-5 relative text-white rounded-xl w-fit">
+			<div className="*:cursor-pointer bg-purple-700 p-4 md:p-5 relative text-white rounded-xl w-fit">
 				<input onChange={handleUpload} accept="image/png, image/jpeg, image/jpg, image/svg, image/webp" type="file" className="absolute inset-0 z-10 opacity-0" />
 				<h3 className="flex items-center gap-3 font-semibold">
 					<Camera />

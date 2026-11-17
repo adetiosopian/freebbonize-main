@@ -17,9 +17,9 @@ type CanvasProps = {
 };
 
 export default function TwibbonCanvas({ userPhoto, transform, frameSrc, isEditMode, setTransform, canvasRef }: CanvasProps) {
-	// Dimensi mengikuti ukuran asli twibbon (1475 x 1844)
-	const canvasWidth = 1080;
-	const canvasHeight = 1350;
+	// Dimensi mengikuti ukuran asli twibbon (1475 x 1844) — tidak diperkecil
+	const canvasWidth = 1475;
+	const canvasHeight = 1844;
 	const frameRef = useRef(new Image());
 
 	function draw() {
@@ -27,17 +27,26 @@ export default function TwibbonCanvas({ userPhoto, transform, frameSrc, isEditMo
 		if (!canvas) return;
 
 		const ctx = canvas.getContext("2d");
-		ctx?.clearRect(0, 0, canvasWidth, canvasHeight);
+		if (!ctx) return;
+
+		// Aktifkan image smoothing kualitas tinggi agar tidak pecah saat di-scale
+		ctx.imageSmoothingEnabled = true;
+		ctx.imageSmoothingQuality = "high";
+
+		ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
 		if (userPhoto) {
-			ctx?.save();
-			ctx?.translate(canvasWidth / 2 + transform.x, canvasHeight / 2 + transform.y);
-			ctx?.rotate((transform.rotate * Math.PI) / 180);
-			ctx?.scale(transform.scale / 100, transform.scale / 100);
-			ctx?.drawImage(userPhoto, -userPhoto.width / 2, -userPhoto.height / 2);
-			ctx?.restore();
+			ctx.save();
+			ctx.translate(canvasWidth / 2 + transform.x, canvasHeight / 2 + transform.y);
+			ctx.rotate((transform.rotate * Math.PI) / 180);
+			ctx.scale(transform.scale / 100, transform.scale / 100);
+			// Gambar foto pada ukuran aslinya agar tidak ada degradasi kualitas
+			ctx.drawImage(userPhoto, -userPhoto.naturalWidth / 2, -userPhoto.naturalHeight / 2, userPhoto.naturalWidth, userPhoto.naturalHeight);
+			ctx.restore();
 		}
-		ctx?.drawImage(frameRef.current, 0, 0, canvasWidth, canvasHeight);
+
+		// Frame ditarik tepat seukuran canvas (1475x1844) — full resolusi asli
+		ctx.drawImage(frameRef.current, 0, 0, canvasWidth, canvasHeight);
 	}
 
 	useEffect(() => {
@@ -66,6 +75,7 @@ export default function TwibbonCanvas({ userPhoto, transform, frameSrc, isEditMo
 		lastPos.current = { x: e.clientX, y: e.clientY };
 
 		const canvas = canvasRef.current!;
+		// Hitung rasio piksel canvas vs ukuran tampil CSS
 		const ratio = canvas.width / canvas.clientWidth;
 
 		setTransform((prev) => ({
@@ -80,5 +90,16 @@ export default function TwibbonCanvas({ userPhoto, transform, frameSrc, isEditMo
 		isDragging.current = false;
 	}
 
-	return <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} className={`w-full h-auto ${isEditMode && "cursor-move"}`} onPointerDown={handleDragDown} onPointerMove={handleDragMove} onPointerUp={handleDragUp} />;
+	// w-full h-auto → canvas mengecil di layar tapi resolusi internal tetap 1475x1844
+	return (
+		<canvas
+			ref={canvasRef}
+			width={canvasWidth}
+			height={canvasHeight}
+			className={`w-full h-auto ${isEditMode && "cursor-move"}`}
+			onPointerDown={handleDragDown}
+			onPointerMove={handleDragMove}
+			onPointerUp={handleDragUp}
+		/>
+	);
 }

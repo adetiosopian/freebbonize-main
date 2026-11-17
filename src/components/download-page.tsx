@@ -34,20 +34,20 @@ export default function DownloadPageSidebar({ canvas }: { canvas: React.RefObjec
 	}
 
 	return (
-		<section className="h-[24em] p-5 w-full relative flex flex-col gap-3 justify-between ">
+		<section className="p-4 md:p-5 w-full flex flex-col gap-4">
 			{isEdit && (
-				<div className="bg-black/50 fixed z-40 inset-0 flex justify-center items-center">
-					<div className="bg-white p-5 rounded-md">
-						<h2 className="font-semibold text-xl">Adjust caption</h2>
-						<ul className="*:flex *:justify-between *:items-center flex flex-col gap-3">
+				<div className="bg-black/50 fixed z-40 inset-0 flex justify-center items-center px-4">
+					<div className="bg-white p-5 rounded-md w-full max-w-sm">
+						<h2 className="font-semibold text-xl mb-3">Adjust caption</h2>
+						<ul className="flex flex-col gap-3">
 							{captionProps.map((prop, idx) => (
-								<li key={idx}>
-									<label htmlFor={prop}>{prop}</label>
-									<input type="text" name={prop} id={prop} className="outline-none border-b ml-3" onChange={(e) => setCapValues((prev) => ({ ...prev, [prop]: e.target.value }))} />
+								<li key={idx} className="flex justify-between items-center gap-2">
+									<label htmlFor={prop} className="text-sm font-medium shrink-0">{prop}</label>
+									<input type="text" name={prop} id={prop} className="outline-none border-b flex-1 min-w-0" onChange={(e) => setCapValues((prev) => ({ ...prev, [prop]: e.target.value }))} />
 								</li>
 							))}
 						</ul>
-						<button onClick={() => setIsEdit(false)} className="cursor-pointer py-2 px-3 rounded-md bg-gray-800 text-white font-semibold mt-5">
+						<button onClick={() => setIsEdit(false)} className="cursor-pointer py-2 px-4 rounded-md bg-gray-800 text-white font-semibold mt-5 w-full">
 							Done
 						</button>
 					</div>
@@ -55,33 +55,28 @@ export default function DownloadPageSidebar({ canvas }: { canvas: React.RefObjec
 			)}
 
 			<article>
-				<h1 className="lg:text-4xl text-2xl  font-semibold mb-5">Ready to share!</h1>
+				<h1 className="text-2xl lg:text-4xl font-semibold mb-3">Ready to share!</h1>
 				<div className="flex flex-col gap-3">
-					Caption:
-					<p className="p-2 border rounded-md border-gray-600/50">{filledCaption} </p>
-					<div className="flex *:grow gap-3 text-xs lg:text-base w-full">
-						<button onClick={() => handleCopyCaption()} className="bg-purple-700 text-white flex justify-center items-center p-3 gap-2 rounded-md  cursor-pointer">
+					<span className="text-sm font-medium">Caption:</span>
+					<p className="p-2 border rounded-md border-gray-600/50 text-sm">{filledCaption}</p>
+					<div className="flex gap-2 text-xs md:text-sm">
+						<button onClick={() => handleCopyCaption()} className="flex-1 bg-purple-700 text-white flex justify-center items-center p-3 gap-2 rounded-md cursor-pointer">
 							{isCopied ? (
-								<>
-									<ClipboardCheck />
-									Copied!
-								</>
+								<><ClipboardCheck size={16} /> Copied!</>
 							) : (
-								<>
-									<Clipboard />
-									Copy Caption
-								</>
+								<><Clipboard size={16} /> Copy Caption</>
 							)}
 						</button>
-						<button onClick={() => setIsEdit(true)} className="bg-purple-700 text-white flex justify-center items-center p-3 gap-2 rounded-md  cursor-pointer">
-							<SquarePen />
+						<button onClick={() => setIsEdit(true)} className="flex-1 bg-purple-700 text-white flex justify-center items-center p-3 gap-2 rounded-md cursor-pointer">
+							<SquarePen size={16} />
 							Edit Caption
 						</button>
 					</div>
 				</div>
 			</article>
-			<button onClick={() => handleDownloadCanvas(canvas, "fancy-twibbon.png")} className="flex items-center gap-2 font-semibold cursor-pointer bg-purple-700 p-5 text-white rounded-xl md:w-fit w-full">
-				<ArrowDownToLine />
+
+			<button onClick={() => handleDownloadCanvas(canvas, "fancy-twibbon.png")} className="flex items-center justify-center gap-2 font-semibold cursor-pointer bg-purple-700 p-4 text-white rounded-xl w-full md:w-fit">
+				<ArrowDownToLine size={18} />
 				Download Image
 			</button>
 		</section>
